@@ -4,7 +4,7 @@
   "description": "Write once react config, crash anywhere",
   "main": "index.js",
   "bin": {
-    "mome": "script.js"
+    "mome": "./bin/script.js"
   },
   "scripts": {
     "dev": "bin/script.js start --scripts-version react-scripts",
@@ -52,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": ">=10"
   }
 }
