@@ -1,0 +1,56 @@
+{
+  "name": "momery",
+  "version": "0.1.0",
+  "description": "Write once react config, crash anywhere",
+  "main": "index.js",
+  "bin": {
+    "mome": "script.js"
+  },
+  "scripts": {
+    "dev": "bin/script.js start --scripts-version react-scripts",
+    "test-ui": "echo \"Error: no test specified\" && exit 1",
+    "test-script": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@types/node": "^12.0.2",
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "^16.8.4",
+    "node-sass": "^4.12.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "^3.0.1",
+    "typescript": "^3.4.5"
+  },
+  "peerDependencies": {
+    "react-scripts": ">=3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaosdogl/momery.git"
+  },
+  "keywords": [
+    "react-script",
+    "react-framework",
+    "react-hooks",
+    "typescript",
+    "web-ui"
+  ],
+  "author": "chaosdogl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chaosdogl/momery/issues"
+  },
+  "homepage": "https://github.com/chaosdogl/momery#readme",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
