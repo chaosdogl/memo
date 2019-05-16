@@ -3,7 +3,7 @@ const paths = require('./utils/paths');
 // before overrides scripts are read
 require(paths.scriptVersion + '/config/env');
 
-const memeoveride = require('../memo-overrides');
+const memeoveride = require('../../memo-overrides');
 let override = {}
 try {
   override = require(paths.configOverrides);

@@ -10,8 +10,13 @@ if (cs_index > -1 && cs_index + 1 <= process.argv.length) {
 }
 
 //Allow custom overrides package location
-const projectDir = path.resolve(fs.realpathSync(process.cwd()));
-const customPath = require(path.resolve(projectDir, 'package.json'))['config-overrides-path'];
+let projectDir = path.resolve(fs.realpathSync(process.cwd()));
+const prd_index = process.argv.indexOf('--project-dir');
+if (prd_index > -1 && prd_index + 1 <= process.argv.length) {
+  projectDir = process.argv[cs_index + 1];
+}
+
+const customPath = require(path.resolve(projectDir, '../', 'package.json'))['config-overrides-path'];
 var config_overrides = customPath
   ? `${ projectDir }/${ customPath }`
   : `${ projectDir }/config-overrides`;

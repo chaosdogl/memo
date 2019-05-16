@@ -1,13 +1,12 @@
 {
   "name": "momery",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Write once react config, crash anywhere",
   "main": "index.js",
   "bin": {
     "mome": "./bin/script.js"
   },
   "scripts": {
-    "dev": "bin/script.js start --scripts-version react-scripts",
     "test-ui": "echo \"Error: no test specified\" && exit 1",
     "test-script": "echo \"Error: no test specified\" && exit 1"
   },

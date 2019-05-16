@@ -1,0 +1,12 @@
+{
+  "name": "momery-app",
+  "version": "0.1.0",
+  "description": "memory app template",
+  "main": "index.js",
+  "scripts": {
+    "dev": "../node_modules/react-scripts/bin/react-scripts.js start"
+  },
+  "engines": {
+    "node": ">=10"
+  }
+}
