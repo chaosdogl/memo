@@ -16,7 +16,7 @@ if (prd_index > -1 && prd_index + 1 <= process.argv.length) {
   projectDir = process.argv[cs_index + 1];
 }
 
-const customPath = require(path.resolve(projectDir, '../', 'package.json'))['config-overrides-path'];
+const customPath = require(path.resolve(projectDir, 'package.json'))['config-overrides-path'];
 var config_overrides = customPath
   ? `${ projectDir }/${ customPath }`
   : `${ projectDir }/config-overrides`;
