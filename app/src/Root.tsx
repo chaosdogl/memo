@@ -1,14 +1,20 @@
 import React from 'react'
-import './style/main.sass'
+import { Provider } from 'react-redux'
+import { Store } from 'redux'
+import { Router } from './Router'
 
 export interface Props {
-  store: any,
-  Routes: any
+  store: Store,
+  Routes: () => JSX.Element
 }
 
-function Root(props: any) {
+function Root({ store, Routes }: Props) {
   return (
-    <h1>render Root.tsx of momery</h1>
+    <Provider store={store}>
+      <Router>
+        <Routes />
+      </Router>
+    </Provider>
   )
 }
 
