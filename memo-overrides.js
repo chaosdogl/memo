@@ -7,18 +7,18 @@ module.exports = function override(config) {
   config.module.rules.map(rule => {
     if (rule.include) {
       if (typeof rule.include === 'string') {
-        rule.include = [rule.include, memeAppPath]
+        rule.include = [rule.include, momeAppPath]
       } else if (typeof rule.include.psuh === 'function') {
-        rule.include.psuh(memeAppPath)
+        rule.include.psuh(momeAppPath)
       }
     }
     if (rule.oneOf) {
       rule.oneOf.map(rule => {
         if (rule.include) {
           if (typeof rule.include === 'string') {
-            rule.include = [rule.include, memeAppPath]
+            rule.include = [rule.include, momeAppPath]
           } else if (typeof rule.include.psuh === 'function') {
-            rule.include.psuh(path.join(memeAppPath))
+            rule.include.psuh(momeAppPath)
           }
         }
       })
