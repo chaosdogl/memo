@@ -1,6 +1,6 @@
 
 const path = require('path')
-const memeAppPath = path.join(__dirname, './app')
+const momeAppPath = path.join(__dirname, './app')
 
 module.exports = function override(config) {
   // rewrite rule include path
