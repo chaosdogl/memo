@@ -76,6 +76,10 @@ class httpClient {
       ...restRequestInit
     }).then(checkStatus)
   }
+
+  setHeader(HeadersInit: object) {
+    this.headers = { ...this.headers, ...HeadersInit }
+  }
 }
 
 export default httpClient

@@ -8,7 +8,6 @@ import thunkMiddleware from './middleware/async-thunk'
 import apiMiddleware from './middleware/api'
 import httpClient from '../utils/http'
 
-const localStorageState = JSON.parse(window.localStorage.getItem('store') || '{}')
 export const history = createBrowserHistory()
 
 export interface configureStoreProps {
@@ -21,7 +20,7 @@ export interface configureStoreProps {
 
 export function configureStore({
   reducers,
-  preloadedState = localStorageState,
+  preloadedState = {},
   middlewares = [],
   httpClient
 }: configureStoreProps) {
