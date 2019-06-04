@@ -8,7 +8,7 @@ export interface httpClientInit {
 }
 
 export interface RequestInit {
-  params?: object
+  params?: { [key: string]: unknown }
   body?: BodyInit | null
   cache?: RequestCache
   credentials?: RequestCredentials
