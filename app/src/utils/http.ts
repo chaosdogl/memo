@@ -9,7 +9,7 @@ export interface httpClientInit {
 
 export interface RequestInit {
   params?: { [key: string]: unknown }
-  body?: BodyInit | null
+  body?: BodyInit | object | null
   cache?: RequestCache
   credentials?: RequestCredentials
   headers?: HeadersInit
@@ -68,12 +68,13 @@ class httpClient {
     } else {
       body = JSON.stringify(body)
     }
+
     return fetch(url, {
       headers: this.headers,
       method,
-      body,
       ...this.requestInit,
-      ...restRequestInit
+      ...restRequestInit,
+      body
     }).then(checkStatus)
   }
 
