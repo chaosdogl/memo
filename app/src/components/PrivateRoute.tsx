@@ -1,15 +1,16 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { StoreState } from '../typings/index'
 
 export interface PrivateRouteProps {
   component: any,
   redirect: any
-  isAuthenticated: boolean
 }
 
-function PrivateRoute({ component: Component, redirect: Redirect, isAuthenticated, ...rest }: PrivateRouteProps) {
+function PrivateRoute({ component: Component, redirect: Redirect, ...rest }: PrivateRouteProps) {
+  const isAuthenticated = useSelector(({ meta }: StoreState) => meta.auth.isAuthenticated)
+
   return (
     <Route
       {...rest}
@@ -24,6 +25,4 @@ function PrivateRoute({ component: Component, redirect: Redirect, isAuthenticate
   )
 }
 
-export default connect(({ meta }: StoreState) => ({
-  isAuthenticated: !!meta.auth.isAuthenticated
-}))(PrivateRoute)
+export default PrivateRoute

@@ -11,3 +11,5 @@ export const toggleUser = function (user: User) {
     payload: user
   }
 }
+
+export const clear_user = 'CLEAR_USER'
