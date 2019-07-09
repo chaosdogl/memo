@@ -1,10 +1,10 @@
 import { Middleware } from 'redux'
 
-const asyncThunk: Middleware = ({ dispatch, getState }) => next => async action => {
+const thunk: Middleware = ({ dispatch, getState }) => next => action => {
   if (typeof action === 'function') {
     return action(dispatch, getState)
   }
   return next(action)
 }
 
-export default asyncThunk
+export default thunk

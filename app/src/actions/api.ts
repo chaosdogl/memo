@@ -3,11 +3,11 @@ export interface RequestInit {
   method?: string,
   params?: object | null,
   body?: any,
-  handle?: Array<string>
+  trigger?: Array<string>
 }
 
 export const fetch = function (url: string, RequestInit?: RequestInit) {
-  const { method = 'GET', params = null, body = null, handle = [] } = RequestInit || {}
+  const { method = 'GET', params = null, body = null, trigger = [] } = RequestInit || {}
   return {
     type: `@api/${method}`,
     api: {
@@ -15,7 +15,7 @@ export const fetch = function (url: string, RequestInit?: RequestInit) {
       method,
       params,
       body,
-      handle: [`@api/${method}/success`, `@api/${method}/failure`].map((s, i) => (handle[i] || s))
+      trigger: [`@api/${method}/success`, `@api/${method}/failure`].map((s, i) => (trigger[i] || s))
     }
   }
 }
@@ -41,7 +41,7 @@ export const restProxy = function (name: string, baseURL: string) {
   return {
     args: { name, baseURL },
     types,
-    index({ params = null, body = {}, handle = [] }: RequestInit = {}) {
+    index({ params = null, body = {}, trigger = [] }: RequestInit = {}) {
       return {
         type: types.index,
         api: {
@@ -49,11 +49,11 @@ export const restProxy = function (name: string, baseURL: string) {
           url: baseURL,
           params,
           body,
-          handle: [types.index_success, types.index_failure].map((s, i) => (handle[i] || s))
+          trigger: [types.index_success, types.index_failure].map((s, i) => (trigger[i] || s))
         }
       }
     },
-    create({ params = null, body = {}, handle = [] }: RequestInit) {
+    create({ params = null, body = {}, trigger = [] }: RequestInit) {
       return {
         type: types.create,
         api: {
@@ -61,11 +61,11 @@ export const restProxy = function (name: string, baseURL: string) {
           url: baseURL,
           params,
           body,
-          handle: [types.create_success, types.create_failure].map((s, i) => (handle[i] || s))
+          trigger: [types.create_success, types.create_failure].map((s, i) => (trigger[i] || s))
         }
       }
     },
-    read({ id, params = null, body = {}, handle = [] }: RequestInit) {
+    read({ id, params = null, body = {}, trigger = [] }: RequestInit) {
       if (!id) throw new Error('restProxy: id is required')
       return {
         type: types.read,
@@ -74,11 +74,11 @@ export const restProxy = function (name: string, baseURL: string) {
           url: `${baseURL}/${id}`,
           params,
           body,
-          handle: [types.read_success, types.read_failure].map((s, i) => (handle[i] || s))
+          trigger: [types.read_success, types.read_failure].map((s, i) => (trigger[i] || s))
         }
       }
     },
-    update({ id, params = null, body = {}, handle = [] }: RequestInit) {
+    update({ id, params = null, body = {}, trigger = [] }: RequestInit) {
       if (!id) throw new Error('restProxy: id is required')
       return {
         type: types.update,
@@ -87,11 +87,11 @@ export const restProxy = function (name: string, baseURL: string) {
           url: `${baseURL}/${id}`,
           params,
           body,
-          handle: [types.update_success, types.update_failure].map((s, i) => (handle[i] || s))
+          trigger: [types.update_success, types.update_failure].map((s, i) => (trigger[i] || s))
         }
       }
     },
-    destory({ id, params = null, body = {}, handle = [] }: RequestInit) {
+    destory({ id, params = null, body = {}, trigger = [] }: RequestInit) {
       if (!id) throw new Error('restProxy: id is required')
       return {
         type: types.destory,
@@ -100,7 +100,7 @@ export const restProxy = function (name: string, baseURL: string) {
           url: `${baseURL}/${id}`,
           params,
           body,
-          handle: [types.destory_success, types.destory_failure].map((s, i) => (handle[i] || s))
+          trigger: [types.destory_success, types.destory_failure].map((s, i) => (trigger[i] || s))
         }
       }
     }

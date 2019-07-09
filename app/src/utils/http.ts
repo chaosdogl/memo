@@ -2,7 +2,7 @@ import fetch from 'cross-fetch'
 import qs from 'query-string'
 
 export interface httpClientInit {
-  baseURL?: String
+  baseURL?: string
   headers?: HeadersInit
   requestInit?: RequestInit
 }
@@ -24,11 +24,6 @@ export interface RequestInit {
   window?: any
 }
 
-const httpServerInit = {
-  baseURL: '/',
-  headers: {},
-  requestInit: {}
-}
 
 function checkStatus(response: Response) {
   if (response.status >= 200 && response.status < 300) {
@@ -36,32 +31,35 @@ function checkStatus(response: Response) {
     if (~contentType.indexOf('application/json')) return response.json()
     else return response.text()
   } else {
+    const error: any = new Error(response.statusText)
+    error.code = response.status
     const contentType = response.headers.get('Content-Type') || ''
-    if (~contentType.indexOf('application/json')) return response.json().then(res => { throw res })
-    else throw new Error(response.statusText)
+    if (~contentType.indexOf('application/json')) {
+      return response.json().then(res => {
+        error.message = res.message
+        throw error
+      })
+    } else {
+      throw error
+    }
   }
 }
 
 class httpClient {
-  private config: httpClientInit
-  private headers: Headers
+  private baseURL: string
+  private headers: HeadersInit
   private requestInit: RequestInit
 
-  constructor(config: httpClientInit = httpServerInit, schema?: string) {
-
-    if (schema) {
-      if (schema === 'json') {
-        config.headers = { ...config.headers, "Content-Type": "application/json" }
-      }
-    }
-    this.config = config
-    this.requestInit = config.requestInit || {}
-    this.headers = (config.headers || {}) as Headers // cross-fetch do't support new Headers()
+  constructor({ baseURL = '', headers = {}, requestInit = {} }: httpClientInit, schema?: string) {
+    this.baseURL = baseURL
+    this.headers = { ...headers }  // cross-fetch do't support new Headers()
+    this.requestInit = requestInit
   }
 
   request(url: string, requestInit: RequestInit) {
-    url = this.config.baseURL + url
+    url = url.includes('://') ? url : this.baseURL + url
     let { params, method, body, ...restRequestInit } = requestInit
+
     if (params) url += `?${qs.stringify(params)}`
     if (method === 'GET' || method === 'HEAD') {
       body = undefined
@@ -75,11 +73,12 @@ class httpClient {
       ...this.requestInit,
       ...restRequestInit,
       body
-    }).then(checkStatus)
+    })
+    .then(checkStatus)
   }
 
-  setHeader(HeadersInit: object) {
-    this.headers = { ...this.headers, ...HeadersInit }
+  setHeader(HeadersOpt: object) {
+    this.headers = { ...this.headers, ...HeadersOpt }
   }
 }
 
